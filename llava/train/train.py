@@ -496,7 +496,7 @@ def preprocess_v1(
         labels=targets,
     )
 
-def preprocess_retrieval_or_v1(
+def preprocess_retrieval(
     sources,
     tokenizer: transformers.PreTrainedTokenizer,
     has_image: bool = False
@@ -510,7 +510,7 @@ def preprocess_retrieval_or_v1(
     if is_rag:
         conv = conversation_lib.conv_vicuna_retrieval.copy()
     else:
-        conv = conversation_lib.default_conversation.copy()
+        conv = conversation_lib.conv_vicuna_wo_retrieval.copy()
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
 
     # Apply prompt templates
@@ -718,7 +718,7 @@ def preprocess(
         return preprocess_llama_2(sources, tokenizer, has_image=has_image)
     if conversation_lib.default_conversation.version.startswith("v1"):
         # return preprocess_v1(sources, tokenizer, has_image=has_image)
-        return preprocess_retrieval_or_v1(sources, tokenizer, has_image=has_image)
+        return preprocess_retrieval(sources, tokenizer, has_image=has_image)
     if conversation_lib.default_conversation.version == "mpt":
         return preprocess_mpt(sources, tokenizer, has_image=has_image)
     # add end signal and concatenate together
