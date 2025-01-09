@@ -369,7 +369,18 @@ Answer the questions.""",
     sep="<|im_end|>",
 )
 
-default_conversation = conv_vicuna_v1
+conv_vicuna_retrieval = Conversation(
+    system="You are a helpful question answerer who can provide an answer given a question and relevant context.",
+    roles=("USER", "ASSISTANT"),
+    version="retrieval",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
+default_conversation = conv_vicuna_retrieval
+
 conv_templates = {
     "default": conv_vicuna_v0,
     "v0": conv_vicuna_v0,
@@ -389,6 +400,7 @@ conv_templates = {
     "llava_llama_2": conv_llava_llama_2,
 
     "mpt": conv_mpt,
+    "retrieval": conv_vicuna_retrieval,
 }
 
 
