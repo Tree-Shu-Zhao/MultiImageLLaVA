@@ -390,6 +390,27 @@ conv_vicuna_retrieval = Conversation(
     sep=" ",
     sep2="</s>",
 )
+
+conv_mistral_wo_retrieval = Conversation(
+    system="You are a helpful question answerer who can provide an answer given a question.",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.LLAMA_2,
+    sep="",
+    sep2="</s>",
+)
+conv_mistral_retrieval = Conversation(
+    system="You are a helpful question answerer who can provide an answer given a question and relevant context.",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.LLAMA_2,
+    sep="",
+    sep2="</s>",
+)
 default_conversation = conv_vicuna_v1
 
 conv_templates = {
@@ -414,6 +435,8 @@ conv_templates = {
 
     "retrieval": conv_vicuna_retrieval,
     "wo_retrieval": conv_vicuna_wo_retrieval,
+    "conv_mistral_retrieval": conv_mistral_retrieval,
+    "conv_mistral_wo_retrieval": conv_mistral_wo_retrieval,
 }
 
 

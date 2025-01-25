@@ -334,7 +334,16 @@ def preprocess_llama_2(
     tokenizer: transformers.PreTrainedTokenizer,
     has_image: bool = False
 ) -> Dict:
-    conv = conversation_lib.default_conversation.copy()
+    is_rag = False
+    for item in sources[0]:
+        if "<DOCUMENT>" in item["value"]:
+            is_rag = True
+            break
+    
+    if is_rag:
+        conv = conversation_lib.conv_mistral_retrieval.copy()
+    else:
+        conv = conversation_lib.conv_mistral_wo_retrieval.copy()
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
 
     # Apply prompt templates
